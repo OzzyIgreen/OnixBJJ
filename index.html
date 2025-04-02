@@ -61,6 +61,48 @@
             color: #FFD700;
         }
 
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5em;
+            color: #FFD700;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            padding: 20px;
+            text-align: center;
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 15px;
+            font-size: 1.2em;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-menu a:hover {
+            color: #FFD700;
+        }
+
         .hero {
             height: 100vh;
             display: flex;
@@ -276,18 +318,29 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .testimonial-author img {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             object-fit: cover;
+            border: 2px solid #FFD700;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .author-info {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
         }
 
         .author-info h4 {
             color: #FFD700;
             margin-bottom: 5px;
+            font-size: 1.1em;
         }
 
         .author-info p {
@@ -304,10 +357,60 @@
                 display: none;
             }
 
+            .mobile-menu-btn {
+                display: block;
+            }
+
             .benefits-grid,
             .schedule-grid,
             .price-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .testimonial-card {
+                padding: 20px;
+            }
+
+            .testimonial-content {
+                font-size: 0.95em;
+            }
+
+            .testimonial-author {
+                margin-top: 15px;
+            }
+
+            .testimonial-author img {
+                width: 50px;
+                height: 50px;
+            }
+
+            .author-info {
+                min-width: 150px;
+            }
+
+            .hero-content {
+                padding: 0 20px;
+            }
+
+            .hero p {
+                font-size: 1em;
+            }
+
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 1em;
+            }
+
+            .price-card {
+                padding: 30px 20px;
+            }
+
+            .price-card .price {
+                font-size: 2em;
+            }
+
+            .contact-form {
+                padding: 0 20px;
             }
         }
     </style>
@@ -317,6 +420,9 @@
     <header>
         <nav class="container">
             <div class="logo">Onix - BJJ</div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
             <div class="nav-links">
                 <a href="#beneficios">Benefícios</a>
                 <a href="#horarios">Horários</a>
@@ -325,6 +431,13 @@
             </div>
         </nav>
     </header>
+
+    <div class="mobile-menu">
+        <a href="#beneficios">Benefícios</a>
+        <a href="#horarios">Horários</a>
+        <a href="#precos">Preços</a>
+        <a href="#contato">Contato</a>
+    </div>
 
     <section class="hero">
         <div class="hero-content container">
@@ -485,6 +598,16 @@
     </section>
 
     <script>
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.mobile-menu').classList.toggle('active');
+        });
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelector('.mobile-menu').classList.remove('active');
+            });
+        });
+
         function enviarPagamentoPix(plano, valor) {
             const texto = `Olá! Gostaria de fazer o pagamento do plano ${plano} no valor de R$ ${valor} via PIX.\n\nChave PIX: 75982603544\n\nPor favor, me envie o comprovante após a transferência.`;
             const urlWhatsApp = `https://wa.me/557591793138?text=${encodeURIComponent(texto)}`;
